@@ -1,0 +1,1 @@
+/home/ltadeu6/.local/share/omf/themes/budspencer/fish_prompt.fish
