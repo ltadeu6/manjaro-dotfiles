@@ -341,12 +341,20 @@ focus_follows_mouse no
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
 
+# # class                 border  bground text    indicator child_border
+# client.focused          #2EB398 #2EB398 #F8F8F2 #1b2224   #2EB398
+# client.focused_inactive #1B2224 #1B2224 #F8F8F2 #1b2224   #1B2224
+# client.unfocused        #1B2224 #1B2224 #F8F8F2 #1b2224   #1B2224
+# client.urgent           #FC4561 #FC4561 #F8F8F2 #FC4561   #FC4561
+# client.placeholder      #1B2224 #1B2224 #F8F8F2 #1B2224   #1B2224
+# 
+# client.background       #F8F8F2
 # class                 border  bground text    indicator child_border
-client.focused          #2EB398 #2EB398 #F8F8F2 #1b2224   #2EB398
-client.focused_inactive #1B2224 #1B2224 #F8F8F2 #1b2224   #1B2224
-client.unfocused        #1B2224 #1B2224 #F8F8F2 #1b2224   #1B2224
-client.urgent           #FC4561 #FC4561 #F8F8F2 #FC4561   #FC4561
-client.placeholder      #1B2224 #1B2224 #F8F8F2 #1B2224   #1B2224
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
