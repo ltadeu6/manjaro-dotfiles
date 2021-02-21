@@ -12,6 +12,7 @@ set_from_resource $alt  i3-wm.alt Mod1
 
 ## Launch // Terminal // <> Enter ##
 bindsym $mod+Return exec kitty -e fish -C "pfetch"
+
 ## Launch // Floating  // Terminal // <><Alt> Enter ##
 bindsym $mod+$alt+Return exec kitty -o background_opacity=1 --name "floating" -e fish -C "pfetch"
 
@@ -23,16 +24,18 @@ bindsym $mod+m exec kitty -o background_opacity=1 -o "font_family=Fira Code" --n
 bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
 
 ## Launch // Application // <> Space ##
-bindsym $mod+space exec rofi -show drun -icon-theme "Papirus-Dark-Maia" -show-icons
+# bindsym $mod+space exec rofi -show drun -icon-theme "Papirus-Dark-Maia" -show-icons -theme default
+bindsym $mod+space exec /home/ltadeu6/.config/rofi/bin/launcher_colorful
 
 ## Launch // Tf2 // <Ctrl><Alt> T ##
 bindsym Ctrl+$alt+T exec steam-native steam://rungameid/440
+bindsym $mod+t exec telegram-desktop
 
 ## Launch // Command // <><Shift> Space ##
-bindsym $mod+Shift+space exec rofi -show run
+bindsym $mod+Shift+space exec /home/ltadeu6/.config/rofi/bin/launcher_colorful_run
 
 ## Navigate // Window by Name // <><Ctrl> Space ##
-bindsym $mod+Ctrl+space exec rofi -show window -icon-theme "Papirus-Dark-Maia" -show-icons
+bindsym $mod+Ctrl+space exec /home/ltadeu6/.config/rofi/bin/launcher_colorful_window
 
 ###############################################################################
 # Window and Workspace Navigation
@@ -112,20 +115,23 @@ bindsym $mod+Ctrl+Shift+Right move workspace to output right
 ## Modify // Next Window Orientation // <> Backspace ##
 bindsym $mod+BackSpace split toggle
 
+## Modify // Next Window horizontal// <> Backspace ##
+bindsym $mod+d split horizontal
+
+## Modify // Next Window Vertical // <> Backspace ##
+bindsym $mod+v split vertical
+
 ## Modify // Window Fullscreen Toggle // <> f ##
 bindsym $mod+f fullscreen toggle
 
 ## Modify // Window Floating Toggle // <><Shift> f ##
 bindsym $mod+Shift+f floating toggle
 
-## Modify // Move to Scratchpad // <><Ctrl> m ##
-bindsym $mod+Ctrl+m move to scratchpad
-
 ## Modify // Tile/Float Focus Toggle // <><Shift> t ##
 bindsym $mod+Shift+t focus mode_toggle
 
-## Modify // Window Layout Mode // <> t ##
-bindsym $mod+t layout toggle tabbed splith splitv
+# ## Modify // Window Layout Mode // <> t ##
+# bindsym $mod+t layout toggle tabbed splith splitv
 
 ## Modify // Move Window to Workspace 1 - 10 // <><Shift> 0..9 ##
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -175,7 +181,7 @@ bindsym $mod+$alt+Ctrl+9 move container to workspace number 19; workspace number
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-hide_edge_borders smart
+hide_edge_borders none
 
 ###############################################################################
 # Session Management
@@ -183,6 +189,8 @@ hide_edge_borders smart
 
 ## Session // Exit App // <><Shift> q ##
 bindsym $mod+Shift+q [con_id="__focused__"] kill
+
+bindsym $mod+$alt+c move position center
 
 ## Session // Terminate App // <><Alt> q ##
 bindsym $mod+$alt+q [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
@@ -193,23 +201,11 @@ bindsym $mod+Shift+c reload
 ## Session // Restart i3 // <><Shift> r ##
 bindsym $mod+Shift+r restart
 
-## Session // Logout // <><Shift> e ##
-set_from_resource $i3-wm.program.logout i3-wm.program.logout /usr/bin/gnome-session-quit --logout
-bindsym $mod+Shift+e exec $i3-wm.program.logout
-
 ## Session // Reboot // <><Shift> b ##
-set_from_resource $i3-wm.program.reboot i3-wm.program.reboot /usr/bin/gnome-session-quit --reboot
-bindsym $mod+Shift+b exec $i3-wm.program.reboot
+bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
 
-## Session // Power Down // <><Shift> p ##
-set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown /usr/bin/gnome-session-quit --power-off
-bindsym $mod+p exec $i3-wm.program.shutdown
-
-## Session // Lock Screen // <> Escape ##
-bindsym $mod+Escape exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
-
-## Session // Sleep // <><Shift> s ##
-bindsym $mod+Shift+s exec systemctl suspend
+## Session // Powermenu // <><Shift> s ##
+bindsym $mod+Shift+p exec /home/ltadeu6/.config/rofi/bin/powermenu
 
 bindsym $mod+$alt+s exec kitty --start-as=fullscreen -e matrix
 
@@ -220,46 +216,26 @@ bindsym $mod+Ctrl+p exec polybar-msg cmd toggle
 ###############################################################################
 
 ## Modify // Settings // <> c ##
-set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center
-bindsym $mod+c exec $i3-wm.program.settings
-
-## Modify // Display Settings // <> d ##
-set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center display
-bindsym $mod+d exec $i3-wm.program.displayw
+bindsym $mod+c exec gnome-control-center
 
 ## Modify // Wifi Settings // <> w ##
-set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
-bindsym $mod+w exec $i3-wm.program.wifi
-#
-## Russian keyboard
-#bindsym $mod+i exec exec "setxkbmap -option 'grp:alt_shift_toggle' -layout br,ru -variant ,phonetic"
-bindsym $mod+i exec "setxkbmap -layout br,ru -variant ,phonetic -option 'grp:caps_switch'"
-
+bindsym $mod+w exec gnome-control-center wifi
 
 ## Modify // Bluetooth Settings // <> b ##
-set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center bluetooth
-bindsym $mod+b exec $i3-wm.program.bluetooth
+bindsym $mod+b exec gnome-control-center bluetooth
 
 ## Launch // File Browser // <><Shift> n ##
-set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
-bindsym $mod+Shift+n exec $i3-wm.program.files
+bindsym $mod+Shift+n exec /usr/bin/nautilus --new-window
 
-## Launch // Notification Viewer // <> n ##
-#bindsym $mod+n exec /usr/bin/rofication-gui.py
+## Russian keyboard // <> b ##
+bindsym $mod+i exec "setxkbmap -layout br,ru -variant ,phonetic -option 'grp:caps_switch'"
 
 ###############################################################################
 # Workspace Management
 ###############################################################################
 
-# i3-snapshot for load/save current layout
-## Modify // Save Window Layout // <> , ##
-bindsym $mod+comma  exec /usr/bin/i3-snapshot -o > /tmp/i3-snapshot 
-## Modify // Load Window Layout // <> . ##
-bindsym $mod+period exec /usr/bin/i3-snapshot -c < /tmp/i3-snapshot
-
 # Cause Settings app to float above tiled windows
 floating_maximum_size -1 x -1
-#for_window [title="cmatrix*"] fullscreen enable
 for_window [class="Gnome-control-center"] floating enable
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="Tor Browser"] floating enable
@@ -299,8 +275,8 @@ mode "Resize Mode" {
         ## Resize // Window Gaps // + - ##
         bindsym minus gaps inner current minus 1
         bindsym plus gaps inner current plus 1
-        bindsym Shift+minus gaps inner current minus 10
-        bindsym Shift+plus gaps inner current plus 10
+        bindsym Shift+minus gaps inner current minus 1
+        bindsym Shift+plus gaps inner current plus 1
 
         ## Resize // Exit Resize Mode // Escape or Enter ## 
         bindsym Return mode "default"
@@ -314,16 +290,20 @@ bindsym $mod+r mode "Resize Mode"
 ###############################################################################
 
 # Disable titlebar
-default_border pixel 1
-default_floating_border pixel 1
+# default_border pixel 1
+# default_floating_border pixel 1
+
+#fix for borders on gnome apps
+for_window [class=.*] border pixel 3
 
 # Specify the distance between windows in pixels. (i3-gaps)
 
-gaps inner 0
+gaps inner 16
 gaps outer 0
+gaps top 32
 
 # Only enable gaps on a workspace when there is at least one container
-#smart_gaps on
+# smart_gaps on
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -335,60 +315,45 @@ focus_follows_mouse no
 # i3 Colors and Fonts
 ###############################################################################
 
-# Set colors from Xresources
-# Change 'color7' and 'color2' to whatever colors you want i3 to use 
-# from the generated scheme.
-# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
-# it fails to get colors from Xresources.
+# Modified Dracula theme
 
-# # class                 border  bground text    indicator child_border
-# client.focused          #2EB398 #2EB398 #F8F8F2 #1b2224   #2EB398
-# client.focused_inactive #1B2224 #1B2224 #F8F8F2 #1b2224   #1B2224
-# client.unfocused        #1B2224 #1B2224 #F8F8F2 #1b2224   #1B2224
-# client.urgent           #FC4561 #FC4561 #F8F8F2 #FC4561   #FC4561
-# client.placeholder      #1B2224 #1B2224 #F8F8F2 #1B2224   #1B2224
-# 
-# client.background       #F8F8F2
 # class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+client.focused          #bd93f9 #bd93f9 #F8F8F2 #50fa7b   #bd93f9
+client.focused_inactive #44475A #44475A #F8F8F2 #50fa7b   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #50fa7b   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #50fa7b   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #50fa7b   #282A36
 
 client.background       #F8F8F2
 
 # Sets i3 font for dialogs
-set_from_resource $i3-wm.font i3-wm.font pango:Source Code Pro Medium 13
-font $i3-wm.font
+font pango:FiraCode Nerd Font 13
 
 ###############################################################################
 # External programs launched with i3
 ###############################################################################
 
-# Start Rofication for notifications
-#set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
-#exec --no-startup-id $i3-wm.program.notifications
-
 # Hide the mouse pointer if unused for a duration
 exec --no-startup-id unclutter -b
 
-
+# Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# Compositor
 exec_always --no-startup-id picom --backend glx #--glx-fshader-win "$(cat ~/.config/picom/gray.glsl)"
 
-for_window [class=.*] border pixel 2
-
-#exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/wallpapers-2018/Manjaro_organic_1920x1080.jpg
 
 exec --no-startup-id /usr/lib/gsd-xsettings
-exec_always --no-startup-id gnome-power-manager
-#exec /usr/lib/polkit-1/polkitd --no-debug
-#exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-flashback
+exec --no-startup-id ntfd
+
+# Alternative way to set bg
+#exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/wallpapers-2018/Manjaro_organic_1920x1080.jpg
+
+#exec /usr/lib/polkit-1/polkitd --no-debug
 #exec --no-startup-id /usr/bin/gnome-screensaver
 #exec --no-startup-id steam -silent
-
 #bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 '-5%'
 #bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 '+5%' 
 #bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute 0 toggle    

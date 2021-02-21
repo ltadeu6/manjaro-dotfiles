@@ -7,11 +7,12 @@
 #=============================================================================
 
 # All SpaceVim option below [option] section
+
 [options]
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer
-    colorscheme = "SpaceVim"
+    colorscheme = "dracula"
     colorscheme_bg = "dark"
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
@@ -28,6 +29,7 @@
     vimcompatible = false
     filetree_direction = "left"
     automatic_update = true
+    bootstrap_before = 'myspacevim#before'
 
 # Enable autocomplete layer
 [[layers]]
@@ -60,8 +62,6 @@
     on_cmd = ["ColorToggle"]
 #    merged = false
 
-[[custom_plugins]]
-name = "dracula/vim"
 
 [[layers]]
   name = "sudo"
