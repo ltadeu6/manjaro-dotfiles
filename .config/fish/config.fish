@@ -11,3 +11,15 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 eval /opt/anaconda/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
+### SET MANPAGER
+### Uncomment only one of these!
+
+### "bat" as manpager
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'" 
+
+### "vim" as manpager
+# set -x MANPAGER '/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+
+### "nvim" as manpager
+# set -x MANPAGER "nvim -c 'set ft=man' -"
+

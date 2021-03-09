@@ -154,4 +154,14 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+### SET MANPAGER
+### Uncomment only one of these!
 
+### "bat" as manpager
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+### "vim" as manpager
+# export MANPAGER='/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+
+### "nvim" as manpager
+export MANPAGER="nvim -c 'set ft=man' -"

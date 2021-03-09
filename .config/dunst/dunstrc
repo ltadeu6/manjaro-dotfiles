@@ -149,7 +149,7 @@
     # startup_notification = true
     
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/rofi -dmenu -theme default -p dunst:
     
     # Browser for opening urls in context menu.
     browser = /usr/bin/firefox -new-tab
@@ -197,21 +197,21 @@ separator_color = "#e9e9f4"
 
 [frame]
     width = 2
-    color = "#bd93f9"
+    color = "#282a36"
 
 [urgency_low]
+    foreground = "#6272a4"
     background = "#282a36"
-    foreground = "#f8f8f2"
     timeout = 10
 
 [urgency_normal]
     background = "#282a36"
-    foreground = "#f8f8f2"
+    foreground = "#bd93f9"
     timeout = 10
 
 [urgency_critical]
     background = "#282a36"
-    foreground = "#f8f8f2"
+    foreground = "#ff79c6"
     frame_color = "#ff5555"
     timeout = 90
 

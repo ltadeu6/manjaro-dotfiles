@@ -62,6 +62,10 @@
     on_cmd = ["ColorToggle"]
 #    merged = false
 
-
 [[layers]]
   name = "sudo"
+
+[[custom_plugins]]
+  repo = "dracula/vim"
+  name = "dracula"
+  merged = false
