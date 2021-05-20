@@ -11,14 +11,16 @@ set_from_resource $alt  i3-wm.alt Mod1
 ###############################################################################
 
 ## Launch // Terminal // <> Enter ##
-bindsym $mod+Return exec kitty -e fish -C "pfetch"
+bindsym $mod+Return exec kitty -e fish
 
 ## Launch // Floating  // Terminal // <><Alt> Enter ##
-bindsym $mod+$alt+Return exec kitty --name "floating" -o background_opacity=.90 -e fish -C "neofetch"
+bindsym $mod+$alt+Return exec kitty --name "floating" -e fish
 
-bindsym $mod+$alt+m exec i3-msg "workspace ", exec chromium --new-window --incognito music.youtube.com
+bindsym $mod+$alt+m exec firefox -p netflix --class="YTMusic" -kiosk music.youtube.com
 
 bindsym $mod+m exec kitty -o "font_family=Fira Code" --name "floating" -e ncmpcpp # -o background_opacity=1
+
+bindsym $mod+d exec emacs
 
 ## Launch // Browser // <><Shift> Enter ##
 bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
@@ -115,12 +117,6 @@ bindsym $mod+Ctrl+Shift+Right move workspace to output right
 ## Modify // Next Window Orientation // <> Backspace ##
 bindsym $mod+BackSpace split toggle
 
-## Modify // Next Window horizontal// <> Backspace ##
-bindsym $mod+d split horizontal
-
-## Modify // Next Window Vertical // <> Backspace ##
-bindsym $mod+v split vertical
-
 ## Modify // Window Fullscreen Toggle // <> f ##
 bindsym $mod+f fullscreen toggle
 
@@ -181,7 +177,7 @@ bindsym $mod+$alt+Ctrl+9 move container to workspace number 19; workspace number
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-hide_edge_borders none
+hide_edge_borders smart
 
 ###############################################################################
 # Session Management
@@ -225,7 +221,7 @@ bindsym $mod+w exec gnome-control-center wifi
 bindsym $mod+b exec gnome-control-center bluetooth
 
 ## Launch // File Browser // <><Shift> n ##
-bindsym $mod+Shift+n exec /usr/bin/nautilus --new-window
+bindsym $mod+Shift+n exec dolphin
 
 ## Russian keyboard // <> b ##
 bindsym $mod+i exec "setxkbmap -layout br,ru -variant ,phonetic -option 'grp:caps_switch'"
@@ -241,6 +237,8 @@ for_window [class="Gnome-calculator"] floating enable
 for_window [class="Tor Browser"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [class="kitty" instance="floating"] floating enable
+for_window [class="YTMusic"] move container to workspace 
+for_window [class="YTMusic"] exec "sh -c 'sleep 1; i3-msg \[class=YTMusic\] fullscreen disable'"
 
 ###############################################################################
 # Window Resize and Gaps
@@ -275,6 +273,7 @@ mode "Resize Mode" {
         ## Resize // Window Gaps // + - ##
         bindsym minus gaps inner current minus 1
         bindsym plus gaps inner current plus 1
+        bindsym s sticky toggle
 
         bindsym Shift+minus gaps horizontal current minus 1
         bindsym Shift+plus gaps horizontal current plus 1
@@ -282,9 +281,14 @@ mode "Resize Mode" {
         bindsym $alt+minus gaps vertical current minus 1
         bindsym $alt+plus gaps vertical current plus 1
 
-        bindsym 0 gaps inner current set 16; gaps top current set 32
+        bindsym 0 gaps vertical current set 0; gaps horizontal current set 0; gaps inner current set 16; gaps top current set 32;
+        bindsym 9 gaps horizontal current set 236
 
-        ## Resize // Exit Resize Mode // Escape or Enter ## 
+        bindsym 1 exec $HOME/.config/polybar/launchf.sh; gaps vertical all set 0; gaps horizontal all set 0; gaps inner all set 0; gaps top all set 0;
+        bindsym 2 exec $HOME/.config/polybar/launch.sh; gaps vertical all set 0; gaps horizontal all set 0; gaps inner all set 16; gaps top all set 32;
+
+        
+## Resize // Exit Resize Mode // Escape or Enter ## 
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
@@ -300,13 +304,18 @@ bindsym $mod+r mode "Resize Mode"
 # default_floating_border pixel 1
 
 #fix for borders on gnome apps
-for_window [class=.*] border pixel 3
+for_window [class=.*] border pixel 1
+for_window [class=Guake] border pixel 1
 
 # Specify the distance between windows in pixels. (i3-gaps)
 
-gaps inner 16
+# gaps inner 16
+# gaps outer 0
+# gaps top 32
+
+gaps inner 0
 gaps outer 0
-gaps top 32
+gaps top 0
 
 # Only enable gaps on a workspace when there is at least one container
 # smart_gaps on
@@ -343,17 +352,18 @@ font pango:FiraCode Nerd Font 13
 exec --no-startup-id unclutter -b
 
 # Polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launchf.sh
+exec --no-startup-id guake
 
 # Compositor
 # exec_always --no-startup-id picom --backend glx -bc #--glx-fshader-win "$(cat ~/.config/picom/gray.glsl)"
-exec_always --no-startup-id picom --experimental-backends --backend glx -bc
+# exec_always --no-startup-id picom --experimental-backends --backend glx -bc
 
 
-exec --no-startup-id /usr/lib/gsd-xsettings
+# exec --no-startup-id /usr/lib/gsd-xsettings
 # exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-flashback
-exec --no-startup-id ntfd
+# exec --no-startup-id ntfd
 
 # Alternative way to set bg
 #exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/wallpapers-2018/Manjaro_organic_1920x1080.jpg

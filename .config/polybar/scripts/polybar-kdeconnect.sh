@@ -2,8 +2,8 @@
 
 # CONFIGURATION
 LOCATION=0
-YOFFSET=-390
-XOFFSET=765
+YOFFSET=-375
+XOFFSET=830
 WIDTH=10
 WIDTH_WIDE=24
 THEME=default
@@ -13,10 +13,11 @@ COLOR_DISCONNECTED='#6272a4'       # Device Disconnected
 COLOR_NEWDEVICE='#50fa7b'          # New Device
 COLOR_BATTERY_HIGH='#f8f8f2'         # Battery >= 30
 COLOR_BATTERY_LOW='#ff5555'        # Battery <  30
+COLOR_BATTERY_MEDIUM='#f1fa8c'
 
 # Icons shown in Polybar
-ICON_SMARTPHONE=''
-ICON_TABLET=''
+ICON_SMARTPHONE=''
+ICON_TABLET=''
 SEPERATOR='|'
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -92,11 +93,11 @@ get_icon () {
     fi
     case $1 in
     # "-1")     ICON="%{F$COLOR_DISCONNECTED}$icon%{F-}" ;;
-    "-1")     ICON=" " ;;
-    "-2")     ICON="%{F$COLOR_NEWDEVICE}$icon%{F-}" ;;
-    [1-3]?) ICON="$icon    $battery%" ;;
-    [4-9]?|100) ICON="$icon " ;;
-    *)      ICON="%{F$COLOR_BATTERY_LOW}$icon    $battery%%{F-}" ;;
+    "-1")       ICON="" ;;
+    "-2")       ICON="%{F$COLOR_NEWDEVICE}$icon%{F-}" ;;
+    [1-2]?)     ICON="%{F$COLOR_BATTERY_MEDIUM}$icon%{F-}" ;;
+    [3-9]?|100) ICON="$icon " ;;
+    *)          ICON="%{F$COLOR_BATTERY_LOW}$icon%{F-}" ;;
     esac
     echo $ICON
 }

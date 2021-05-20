@@ -14,12 +14,12 @@ SETUVAR budspencer_no_cd_bookmark:\x1d
 SETUVAR budspencer_nobell:\x1d
 SETUVAR budspencer_nocmdhist:c\x1ed\x1ell\x1els\x1em\x1es
 SETUVAR budspencer_nogreeting:\x1d
-SETUVAR budspencer_pwdstyle:long\x1eshort\x1enone
+SETUVAR budspencer_pwdstyle:short\x1enone\x1elong
 SETUVAR budspencer_session_cmd_hist__:set\x20\x2dU\x20budspencer_no_cd_bookmark
 SETUVAR budspencer_session_dir_hist__:/home/ltadeu6\x1e/home/ltadeu6/Python
 SETUVAR budspencer_sessions:_
-SETUVAR budspencer_sessions_active:_
-SETUVAR budspencer_sessions_active_pid:45392
+SETUVAR budspencer_sessions_active:\x1d
+SETUVAR budspencer_sessions_active_pid:\x1d
 SETUVAR fish_color_autosuggestion:BD93F9
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:F8F8F2
@@ -49,7 +49,7 @@ SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
-SETUVAR fish_user_paths:\x1d
+SETUVAR fish_user_paths:/home/ltadeu6/\x2egem/ruby/3\x2e0\x2e0/bin\x1e/home/ltadeu6/\x2eemacs\x2ed/bin/
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_color_command_duration:pure_color_warning
 SETUVAR pure_color_current_directory:pure_color_primary

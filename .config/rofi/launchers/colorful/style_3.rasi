@@ -8,15 +8,15 @@
  */
 
 configuration {
-	font:							      "Iosevka Nerd Font 10";
-  show-icons:             true;
-	icon-theme: 					  "Papirus";
-  display-drun: 					">>>";
-  drun-display-format:    "{name}";
-  disable-history:        false;
-  fullscreen:             false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+	font:				             "Iosevka Nerd Font 10";
+    show-icons:                      true;
+	icon-theme: 				     "Dracula";
+    display-drun:                    ">>>";
+    drun-display-format:             "{name}";
+    disable-history:                 false;
+    fullscreen:                      false;
+	hide-scrollbar: 				 true;
+	sidebar-mode: 	                 false;
 }
 
 @import "colors.rasi"
@@ -25,18 +25,18 @@ window {
     transparency:                   "real";
     background-color:               @bg;
     text-color:                     @fg;
-	  border:							            0px;
-	  border-color:					          @ac;
+	border:						    0px;
+	border-color:		            @ac;
     border-radius:                  0px;
-    height:							            calc(100% - 64px);
-	  width:			            				18%;
+    height:						    calc(100% - 26px);
+	width:            				18%;
     location:                       west;
-    x-offset:                       16px;
-    y-offset:                       16px;
+    x-offset:                       0px;
+    y-offset:                       13px;
 }
 
 prompt {
-  enabled: 						true;
+    enabled: 						true;
 	padding: 						0.10% 1% 0% -0.5%;
 	background-color: 				@al;
 	text-color: 					@bg;
