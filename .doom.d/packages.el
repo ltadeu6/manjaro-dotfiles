@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! org-ref)
+(package! matrix-client)

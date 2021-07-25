@@ -29,8 +29,11 @@ bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser
 # bindsym $mod+space exec rofi -show drun -icon-theme "Papirus-Dark-Maia" -show-icons -theme default
 bindsym $mod+space exec /home/ltadeu6/.config/rofi/bin/launcher_colorful
 
+bindsym $mod+p exec rofi-pass
+bindsym $mod+$alt+p exec rofi-pass --bmarks
+
 ## Launch // Tf2 // <Ctrl><Alt> T ##
-bindsym Ctrl+$alt+T exec steam-native steam://rungameid/440
+bindsym Ctrl+$alt+T exec steam-native -noverifyfiles steam://rungameid/440
 bindsym $mod+t exec telegram-desktop
 
 ## Launch // Command // <><Shift> Space ##
@@ -223,6 +226,9 @@ bindsym $mod+b exec gnome-control-center bluetooth
 ## Launch // File Browser // <><Shift> n ##
 bindsym $mod+Shift+n exec dolphin
 
+## Launch // File Browser // <><Shift> n ##
+bindsym $mod+z exec zathura
+
 ## Russian keyboard // <> b ##
 bindsym $mod+i exec "setxkbmap -layout br,ru -variant ,phonetic -option 'grp:caps_switch'"
 
@@ -313,9 +319,9 @@ for_window [class=Guake] border pixel 1
 # gaps outer 0
 # gaps top 32
 
-gaps inner 0
-gaps outer 0
-gaps top 0
+# gaps inner 0
+# gaps outer 0
+# gaps top 0
 
 # Only enable gaps on a workspace when there is at least one container
 # smart_gaps on
@@ -334,10 +340,10 @@ focus_follows_mouse no
 
 # class                 border  bground text    indicator child_border
 client.focused          #bd93f9 #bd93f9 #F8F8F2 #50fa7b   #bd93f9
-client.focused_inactive #44475A #44475A #F8F8F2 #50fa7b   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #50fa7b   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #50fa7b   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #50fa7b   #282A36
+client.focused_inactive #282A36 #282A36 #f8f8f2 #282A36   #282A36
+client.unfocused        #282A36 #282A36 #f8f8f2 #282A36   #282A36
+client.urgent           #FF5555 #FF5555 #F8F8F2 #282A36   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
@@ -352,7 +358,7 @@ font pango:FiraCode Nerd Font 13
 exec --no-startup-id unclutter -b
 
 # Polybar
-exec_always --no-startup-id $HOME/.config/polybar/launchf.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id guake
 
 # Compositor
@@ -363,6 +369,7 @@ exec --no-startup-id guake
 # exec --no-startup-id /usr/lib/gsd-xsettings
 # exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-flashback
+exec --no-startup-id element-desktop --hidden
 # exec --no-startup-id ntfd
 
 # Alternative way to set bg

@@ -17,53 +17,48 @@
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
 ;;
+(setq doom-font (font-spec :family "Source Code Pro" :size 15)
+      ;;       doom-variable-pitch-font (font-spec :family "Fira Code Symbol" :size 15)
+      doom-big-font (font-spec :family "Source Code Pro" :size 24))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+;; lambda
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
+(setq global-prettify-symbols-mode t)   ;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;;(setq doom-font (font-spec :family "monospace" :size 16 :weight 'semi-light)
- ;;     doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;;     doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-dracula)
 
-(with-eval-after-load 'ox-latex
-  (add-to-list 'org-latex-classes
-	       '("abntex2"
-	         "\\documentclass{abntex2}
-		  [NO-DEFAULT-PACKAGES]
-		  [EXTRA]"
-	         ("\\section{%s}" . "\\section*{%s}")
-	         ("\\subsection{%s}" . "\\subsection*{%s}")
-	         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	         ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	         ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-	         ("\\maketitle" . "\\imprimircapa")))
-
-  (add-to-list 'org-latex-classes
-               '("standalone"
-                 "\\documentclass{standalone}
-                [NO-DEFAULT-PACKAGES]")))
-(after! org
-  (use-package! org-ref
-    :config (progn
-              (require 'org-ref-pdf)
-              (require 'org-ref-bibtex)
-              (require 'org-ref-url-utils))))
+;; (after! org
+;;   (use-package! org-ref
+;; :config (progn
+;;           (require 'org-ref-pdf)
+;;           (require 'org-ref-bibtex)
+;;           (require 'org-ref-url-utils))))
 ;;  (org-ref-define-citation-link "citeonline" ?o))
 
-(setq reftex-default-bibliography '("~/Modelos/org-abntex2-utfpr/references.bib"))
-(setq org-ref-default-bibliography '("~Modelos/org-abntex2-utfpr/references.bib"))
+;; (setq reftex-default-bibliography '("~/Modelos/org-abntex2-utfpr/references.bib"))
+;; (setq org-ref-default-bibliography '("~Modelos/org-abntex2-utfpr/references.bib"))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Documentos/org/"
+      org-journal-dir "~/Documentos/org/journal/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-(setq org-agenda-include-diary t)
+;; (setq org-agenda-include-diary t)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -80,3 +75,18 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(use-package! org-ref
+  :after org
+  :init
+                                        ; code to run before loading org-ref
+  (setq org-latex-pdf-process
+        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+	  "bibtex %b"
+	  "pdflatex -interaction nonstopmode -output-directory %o %f"
+	  "pdflatex -interaction nonstopmode -output-directory %o %f"))
+  :config (progn
+    (require 'org-ref-pdf)
+    ;; (require 'org-ref-bibtex)
+    (require 'org-ref-url-utils))
+)
+(setq system-time-locale "C")
