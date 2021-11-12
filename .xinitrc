@@ -65,5 +65,4 @@ get_session(){
 
 exec $(get_session)
 
-feh --bg-scale /usr/share/backgrounds/wallpapers-2018/Manjaro_organic_1920x1080.jpg
 xset r rate 500 33

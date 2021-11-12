@@ -3,6 +3,4 @@
 configuration {
   show-icons:         true;
   icon-theme:         "Papirus";
-	terminal: "kitty";
-  run-shell-command: "{terminal} -o background_opacity=1 -o "font_family=Fira Code" --name "floating" -e {cmd}";
 }

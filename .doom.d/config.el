@@ -36,7 +36,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+;; (setq doom-theme 'doom-dracula)
+;; (setq doom-theme 'doom-acario-light)
+;; (setq doom-theme 'xresources)
 
 ;; (after! org
 ;;   (use-package! org-ref
@@ -85,8 +87,31 @@
 	  "pdflatex -interaction nonstopmode -output-directory %o %f"
 	  "pdflatex -interaction nonstopmode -output-directory %o %f"))
   :config (progn
-    (require 'org-ref-pdf)
-    ;; (require 'org-ref-bibtex)
-    (require 'org-ref-url-utils))
-)
+            (require 'org-ref-pdf)
+            ;; (require 'org-ref-bibtex)
+            (require 'org-ref-url-utils))
+  )
 (setq system-time-locale "C")
+;;cc lsp server whith clangd
+
+(setq lsp-clients-clangd-args '("-j=3"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
+
+
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main"))
+
+;; (after! pdf-tools
+;;   (setq pdf-view-midnight-colors '("#f8f8f2" . "#272935")))
+
+; (setq +latex-viewers '(pdf-tools))
+(setq +latex-viewers '(zathura))
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-fit-width-to-window)
+
+

@@ -15,19 +15,19 @@
 # full_circle     full_square     full_rounded     full_alt
 # row_circle      row_square      row_rounded      row_alt
 
-theme="card_rounded"
+theme="full_circle"
 dir="$HOME/.config/rofi/powermenu"
 
-# # random colors
-# styles=($(ls -p --hide="colors.rasi" $dir/styles))
-# color="${styles[$(( $RANDOM % 8 ))]}"
+# random colors
+styles=($(ls -p --hide="colors.rasi" $dir/styles))
+color="${styles[$(( $RANDOM % 8 ))]}"
 
-# # comment this line to disable random colors
-# sed -i -e "s/@import .*/@import \"$color\"/g" $dir/styles/colors.rasi
-# 
-# # comment these lines to disable random style
-# themes=($(ls -p --hide="powermenu.sh" --hide="styles" --hide="confirm.rasi" --hide="message.rasi" $dir))
-# theme="${themes[$(( $RANDOM % 24 ))]}"
+# comment this line to disable random colors
+sed -i -e "s/@import .*/@import \"$color\"/g" $dir/styles/colors.rasi
+
+# comment these lines to disable random style
+themes=($(ls -p --hide="powermenu.sh" --hide="styles" --hide="confirm.rasi" --hide="message.rasi" $dir))
+theme="${themes[$(( $RANDOM % 24 ))]}"
 
 uptime=$(uptime -p | sed -e 's/up //g')
 
@@ -60,35 +60,30 @@ options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 2)"
 case $chosen in
     $shutdown)
-      gnome-session-quit --power-off
-		# ans=$(confirm_exit &)
-		# if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-		# 	# systemctl poweroff
-    #   gnome-session-quit --power-off
-		# elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-		# 	exit 0
-    #     else
-		# 	msg
-    #     fi
+		ans=$(confirm_exit &)
+		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+			systemctl poweroff
+		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+			exit 0
+        else
+			msg
+        fi
         ;;
     $reboot)
-      gnome-session-quit --reboot
-		# ans=$(confirm_exit &)
-		# if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-		# 	systemctl reboot
-		# elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-		# 	exit 0
-    #     else
-		# 	msg
-    #     fi
+		ans=$(confirm_exit &)
+		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+			systemctl reboot
+		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
+			exit 0
+        else
+			msg
+        fi
         ;;
     $lock)
 		if [[ -f /usr/bin/i3lock ]]; then
 			i3lock
 		elif [[ -f /usr/bin/betterlockscreen ]]; then
 			betterlockscreen -l
-		elif [[ -f /usr/bin/gnome-flashback ]]; then
-      dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 		fi
         ;;
     $suspend)
@@ -112,8 +107,6 @@ case $chosen in
 				bspc quit
 			elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
 				i3-msg exit
-			elif [[ "$DESKTOP_SESSION" == "i3-gnome" ]]; then
-        gnome-session-quit --logout
 			fi
 		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
 			exit 0

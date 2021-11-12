@@ -50,4 +50,6 @@
 ;(unpin! t)
 
 (package! org-ref)
-(package! matrix-client)
+(package! theme-magic)
+(package! xresources-theme)
+(package! dashboard)

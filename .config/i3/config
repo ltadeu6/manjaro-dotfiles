@@ -13,6 +13,9 @@ set_from_resource $alt  i3-wm.alt Mod1
 ## Launch // Terminal // <> Enter ##
 bindsym $mod+Return exec kitty -e fish
 
+## ytfzf
+bindsym $mod+y exec ytfzf -DS --sort
+
 ## Launch // Floating  // Terminal // <><Alt> Enter ##
 bindsym $mod+$alt+Return exec kitty --name "floating" -e fish
 
@@ -210,6 +213,8 @@ bindsym $mod+$alt+s exec kitty --start-as=fullscreen -e matrix
 
 bindsym $mod+Ctrl+p exec polybar-msg cmd toggle
 
+bindsym $mod+v exec xclip -o | xargs mpv
+
 ###############################################################################
 # System Management
 ###############################################################################
@@ -221,10 +226,10 @@ bindsym $mod+c exec gnome-control-center
 bindsym $mod+w exec gnome-control-center wifi
 
 ## Modify // Bluetooth Settings // <> b ##
-bindsym $mod+b exec gnome-control-center bluetooth
+bindsym $mod+b border toggle
 
 ## Launch // File Browser // <><Shift> n ##
-bindsym $mod+Shift+n exec dolphin
+bindsym $mod+Shift+n exec pcmanfm
 
 ## Launch // File Browser // <><Shift> n ##
 bindsym $mod+z exec zathura
@@ -238,11 +243,15 @@ bindsym $mod+i exec "setxkbmap -layout br,ru -variant ,phonetic -option 'grp:cap
 
 # Cause Settings app to float above tiled windows
 floating_maximum_size -1 x -1
+
+for_window [class=.*] border pixel 3
 for_window [class="Gnome-control-center"] floating enable
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="Tor Browser"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [class="kitty" instance="floating"] floating enable
+for_window [class="mpv" instance="float"] floating enable, border none
+# for_window [class="feh"] floating enable
 for_window [class="YTMusic"] move container to workspace 
 for_window [class="YTMusic"] exec "sh -c 'sleep 1; i3-msg \[class=YTMusic\] fullscreen disable'"
 
@@ -287,11 +296,11 @@ mode "Resize Mode" {
         bindsym $alt+minus gaps vertical current minus 1
         bindsym $alt+plus gaps vertical current plus 1
 
-        bindsym 0 gaps vertical current set 0; gaps horizontal current set 0; gaps inner current set 16; gaps top current set 32;
-        bindsym 9 gaps horizontal current set 236
+        # bindsym 0 gaps vertical current set 0; gaps horizontal current set 0; gaps inner current set 16; gaps top current set 32;
+        # bindsym 9 gaps horizontal current set 236
 
-        bindsym 1 exec $HOME/.config/polybar/launchf.sh; gaps vertical all set 0; gaps horizontal all set 0; gaps inner all set 0; gaps top all set 0;
-        bindsym 2 exec $HOME/.config/polybar/launch.sh; gaps vertical all set 0; gaps horizontal all set 0; gaps inner all set 16; gaps top all set 32;
+        # bindsym 1 exec $HOME/.config/polybar/launchf.sh; gaps vertical all set 0; gaps horizontal all set 0; gaps inner all set 0; gaps top all set 0;
+        # bindsym 2 exec $HOME/.config/polybar/launch.sh; gaps vertical all set 0; gaps horizontal all set 0; gaps inner all set 16; gaps top all set 32;
 
         
 ## Resize // Exit Resize Mode // Escape or Enter ## 
@@ -310,9 +319,11 @@ bindsym $mod+r mode "Resize Mode"
 # default_floating_border pixel 1
 
 #fix for borders on gnome apps
-for_window [class=.*] border pixel 1
-for_window [class=Guake] border pixel 1
+# for_window [class=Guake] border pixel 1
 
+
+# default_border pixel 3
+# default_floating_border pixel 1
 # Specify the distance between windows in pixels. (i3-gaps)
 
 # gaps inner 16
@@ -336,16 +347,30 @@ focus_follows_mouse no
 # i3 Colors and Fonts
 ###############################################################################
 
-# Modified Dracula theme
+# # Modified Dracula theme
 
-# class                 border  bground text    indicator child_border
-client.focused          #bd93f9 #bd93f9 #F8F8F2 #50fa7b   #bd93f9
-client.focused_inactive #282A36 #282A36 #f8f8f2 #282A36   #282A36
-client.unfocused        #282A36 #282A36 #f8f8f2 #282A36   #282A36
-client.urgent           #FF5555 #FF5555 #F8F8F2 #282A36   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+# # class                 border  bground text    indicator child_border
+# client.focused          #bd93f9 #bd93f9 #F8F8F2 #50fa7b   #bd93f9
+# client.focused_inactive #282A36 #282A36 #f8f8f2 #282A36   #282A36
+# client.unfocused        #282A36 #282A36 #f8f8f2 #282A36   #282A36
+# client.urgent           #FF5555 #FF5555 #F8F8F2 #282A36   #FF5555
+# client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-client.background       #F8F8F2
+# client.background       #F8F8F2
+
+set_from_resource $in i3wm.color0 #f0f0f0
+set_from_resource $rd i3wm.color1 #f0f0f0
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg     $fg  $rd       $bg
+client.focused_inactive $in     $in     $fg  $in       $in
+client.unfocused        $in     $in     $in  $in       $in
+client.urgent           $rd     $rd     $fg  $rd       $rd
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
 
 # Sets i3 font for dialogs
 font pango:FiraCode Nerd Font 13
@@ -359,6 +384,7 @@ exec --no-startup-id unclutter -b
 
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Guake terminal
 exec --no-startup-id guake
 
 # Compositor
@@ -370,6 +396,7 @@ exec --no-startup-id guake
 # exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-flashback
 exec --no-startup-id element-desktop --hidden
+exec --no-startup-id wal -l --theme base16-unikitty -o wal.sh
 # exec --no-startup-id ntfd
 
 # Alternative way to set bg

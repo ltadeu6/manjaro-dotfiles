@@ -43,7 +43,7 @@ bmon=""
 launch_cli=""
 launch=""
 
-options="$connected\n$bmon\n$launch_cli"
+options="$connected\n$bmon\n$launch_cli\n$launch"
 
 ## Main
 chosen="$(echo -e "$options" | $rofi_command -p "$SSID" -dmenu $active $urgent -selected-row 1)"
@@ -56,10 +56,13 @@ case $chosen in
 		fi 
         ;;
     $bmon)
-        kitty -e bmon
+        termite -e bmon
         ;;
     $launch_cli)
-        gnome-control-center wifi
+        termite -e nmtui
+        ;;
+    $launch)
+        nm-connection-editor
         ;;
 esac
 

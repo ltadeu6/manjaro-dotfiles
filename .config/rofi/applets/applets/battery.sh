@@ -59,7 +59,7 @@ case $chosen in
     $ICON_DISCHRG)
         ;;
     $ICON_PMGR)
-        gnome-control-center power  
+        xfce4-power-manager-settings
         ;;
 esac
 

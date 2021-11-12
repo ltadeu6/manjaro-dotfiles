@@ -19,4 +19,4 @@
  *
  */
 
-@import "material-dark/dracula"
+@import "dark.rasi"
