@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [ -f ~/.cache/dark ]; then
+    set_light_theme
+else
+    set_dark_theme
+fi
+killall theme_label

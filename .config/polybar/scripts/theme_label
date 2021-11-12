@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+while :
+do
+    if [ -f ~/.cache/dark ]; then
+        echo 盛
+    else
+        echo 
+    fi
+    sleep 1000
+done
